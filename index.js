@@ -1,14 +1,11 @@
-
 /**
- * Knight Bot - A WhatsApp Bot
- * Copyright (c) 2024 Professor
- * 
- * This program is free software: you can redistribute it and/or modify
+ * RM UCHIHA - A WhatsApp Bot
+ * Copyright (c) 2024 RM UCHIHA
+ * * This program is free software: you can redistribute it and/or modify
  * it under the terms of the MIT License.
- * 
- * Credits:
+ * * Credits:
  * - Baileys Library by @adiwajshing
- * - Pair Code implementation inspired by TechGod143 & DGXEON
+ * - Pair Code implementation inspired by RM UCHIHA
  */
 require('./settings')
 const { Boom } = require('@hapi/boom')
@@ -58,7 +55,7 @@ setInterval(() => store.writeToFile(), settings.storeWriteInterval || 10000)
 setInterval(() => {
     if (global.gc) {
         global.gc()
-        console.log('ðŸ§¹ Garbage collection completed')
+        console.log('🧹 Garbage collection completed')
     }
 }, 60_000) // every 1 minute
 
@@ -66,7 +63,7 @@ setInterval(() => {
 setInterval(() => {
     const used = process.memoryUsage().rss / 1024 / 1024
     if (used > 400) {
-        console.log('âš ï¸ RAM too high (>400MB), restarting bot...')
+        console.log('⚠️ RAM too high (>400MB), restarting bot...')
         process.exit(1) // Panel will auto-restart
     }
 }, 30_000) // check every 30 seconds
@@ -75,7 +72,7 @@ let phoneNumber = "923338872681"
 let owner = JSON.parse(fs.readFileSync('./data/owner.json'))
 
 global.botname = "RM UCHIHA"
-global.themeemoji = "â€¢"
+global.themeemoji = "•"
 const pairingCode = !!phoneNumber || process.argv.includes("--pairing-code")
 const useMobile = process.argv.includes("--mobile")
 
@@ -156,13 +153,13 @@ async function startXeonBotInc() {
                 // Only try to send error message if we have a valid chatId
                 if (mek.key && mek.key.remoteJid) {
                     await XeonBotInc.sendMessage(mek.key.remoteJid, {
-                        text: 'âŒ An error occurred while processing your message.',
+                        text: '❌ An error occurred while processing your message.',
                         contextInfo: {
                             forwardingScore: 1,
                             isForwarded: true,
                             forwardedNewsletterMessageInfo: {
                                 newsletterJid: '120363161513685998@newsletter',
-                                newsletterName: 'KnightBot MD',
+                                newsletterName: 'RM UCHIHA MD',
                                 serverMessageId: -1
                             }
                         }
@@ -216,13 +213,8 @@ async function startXeonBotInc() {
     if (pairingCode && !XeonBotInc.authState.creds.registered) {
         if (useMobile) throw new Error('Cannot use pairing code with mobile api')
 
-        let phoneNumber
-        if (!!global.phoneNumber) {
-            phoneNumber = global.phoneNumber
-        } else {
-            phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number ðŸ˜\nFormat: 6281376552730 (without + or spaces) : `)))
-        }
-
+        let phoneNumber = global.phoneNumber || "923338872681" // Hardcoded tumhara number
+        
         // Clean the phone number - remove any non-digit characters
         phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
 
@@ -251,27 +243,27 @@ async function startXeonBotInc() {
         const { connection, lastDisconnect, qr } = s
         
         if (qr) {
-            console.log(chalk.yellow('ðŸ“± QR Code generated. Please scan with WhatsApp.'))
+            console.log(chalk.yellow('📱 QR Code generated. Please scan with WhatsApp.'))
         }
         
         if (connection === 'connecting') {
-            console.log(chalk.yellow('ðŸ”„ Connecting to WhatsApp...'))
+            console.log(chalk.yellow('🔄 Connecting to WhatsApp...'))
         }
         
         if (connection == "open") {
             console.log(chalk.magenta(` `))
-            console.log(chalk.yellow(`ðŸŒ¿Connected to => ` + JSON.stringify(XeonBotInc.user, null, 2)))
+            console.log(chalk.yellow(`🌿Connected to => ` + JSON.stringify(XeonBotInc.user, null, 2)))
 
             try {
                 const botNumber = XeonBotInc.user.id.split(':')[0] + '@s.whatsapp.net';
                 await XeonBotInc.sendMessage(botNumber, {
-                    text: `ðŸ¤– Bot Connected Successfully!\n\nâ° Time: ${new Date().toLocaleString()}\nâœ… Status: Online and Ready!\n\nâœ…Make sure to join below channel`,
+                    text: `🤖 RM UCHIHA Bot Connected Successfully!\n\n⏳ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!\n\n✅Make sure to join below channel`,
                     contextInfo: {
                         forwardingScore: 1,
                         isForwarded: true,
                         forwardedNewsletterMessageInfo: {
                             newsletterJid: '120363161513685998@newsletter',
-                            newsletterName: 'KnightBot MD',
+                            newsletterName: 'RM UCHIHA MD',
                             serverMessageId: -1
                         }
                     }
@@ -281,14 +273,14 @@ async function startXeonBotInc() {
             }
 
             await delay(1999)
-            console.log(chalk.yellow(`\n\n                  ${chalk.bold.blue(`[ ${global.botname || 'KNIGHT BOT'} ]`)}\n\n`))
+            console.log(chalk.yellow(`\n\n                  ${chalk.bold.blue(`[ ${global.botname || 'RM UCHIHA'} ]`)}\n\n`))
             console.log(chalk.cyan(`< ================================================== >`))
-            console.log(chalk.magenta(`\n${global.themeemoji || 'â€¢'} YT CHANNEL: MR UNIQUE HACKER`))
-            console.log(chalk.magenta(`${global.themeemoji || 'â€¢'} GITHUB: mrunqiuehacker`))
-            console.log(chalk.magenta(`${global.themeemoji || 'â€¢'} WA NUMBER: ${owner}`))
-            console.log(chalk.magenta(`${global.themeemoji || 'â€¢'} CREDIT: MR UNIQUE HACKER`))
-            console.log(chalk.green(`${global.themeemoji || 'â€¢'} ðŸ¤– Bot Connected Successfully! âœ…`))
-            console.log(chalk.blue(`Bot Version: ${settings.version}`))
+            console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: RM UCHIHA`))
+            console.log(chalk.magenta(`${global.themeemoji || '•'} GITHUB: RM UCHIHA`))
+            console.log(chalk.magenta(`${global.themeemoji || '•'} WA NUMBER: +923338872681`))
+            console.log(chalk.magenta(`${global.themeemoji || '•'} CREDIT: RM UCHIHA`))
+            console.log(chalk.green(`${global.themeemoji || '•'} 🤖 RM UCHIHA Bot Connected Successfully! ✅`))
+            console.log(chalk.blue(`Bot Version: ${settings.version || '1.0.0'}`))
         }
         
         if (connection === 'close') {
@@ -341,7 +333,7 @@ async function startXeonBotInc() {
                     if (!antiCallNotified.has(callerJid)) {
                         antiCallNotified.add(callerJid);
                         setTimeout(() => antiCallNotified.delete(callerJid), 60000);
-                        await XeonBotInc.sendMessage(callerJid, { text: 'ðŸ“µ Anticall is enabled. Your call was rejected and you will be blocked.' });
+                        await XeonBotInc.sendMessage(callerJid, { text: '📞 Anticall is enabled. Your call was rejected and you will be blocked.' });
                     }
                 } catch {}
                 // Then: block after a short delay to ensure rejection and message are processed
